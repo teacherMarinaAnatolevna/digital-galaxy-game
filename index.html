@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Місія: Цифрова галактика — Інформатика, 6 клас</title>
+<style>
+:root{--ink:#18244a;--muted:#66719a;--violet:#6656e8;--pink:#ff6ca8;--cyan:#5ed9e8;--yellow:#ffd66b;--green:#31c995;--card:#fff;--bg:#f1f4ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 8%,#d9e9ff 0,transparent 30%),radial-gradient(circle at 90% 12%,#ffe1f0 0,transparent 28%),linear-gradient(135deg,#f5f6ff,#edf9ff);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0}
+.wrap{max-width:1050px;margin:auto;padding:22px 16px 40px}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px;color:white;background:linear-gradient(120deg,#4c3fd0,#755de9 55%,#a15bd7);box-shadow:0 18px 45px #6656e833}
+.hero:after{content:"✦  ✧  ·  ✦";position:absolute;right:25px;top:18px;font-size:30px;opacity:.4;letter-spacing:14px}
+.kicker{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.06;margin:9px 0 12px;max-width:700px}
+.hero p{max-width:690px;margin:0;line-height:1.55;color:#f2efff}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#ffffff20;border:1px solid #ffffff35;font-weight:700;font-size:.85rem;margin-top:17px}
+.topstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.stat{background:#ffffffc9;border:1px solid #e0e6ff;border-radius:18px;padding:13px 16px;box-shadow:0 5px 20px #5263a20b}
+.stat small{display:block;color:var(--muted);font-weight:700;font-size:.75rem}
+.stat strong{font-size:1.25rem}
+.layout{display:grid;grid-template-columns:250px 1fr;gap:16px;align-items:start}
+.panel{background:#ffffffdf;border:1px solid #e3e8ff;border-radius:23px;padding:18px;box-shadow:0 10px 30px #5263a210}
+.side h2{font-size:1rem;margin:0 0 13px}
+.level{display:flex;gap:11px;align-items:center;padding:11px;border-radius:15px;margin:7px 0;background:#f4f6ff;color:#7c83a5;font-weight:700;font-size:.9rem}
+.level .orb{width:35px;height:35px;display:grid;place-items:center;border-radius:12px;background:#e5e8fb;font-size:1rem;flex-shrink:0}
+.level.active{background:#eeeaff;color:#4c3fd0;box-shadow:inset 0 0 0 1px #c9c0ff}
+.level.done{background:#e7fff5;color:#16835e}
+.level.done .orb{background:#c6f7e4}
+.mini{font-size:.75rem;font-weight:600;opacity:.8}
+.progress{height:9px;border-radius:99px;background:#e9edff;overflow:hidden;margin:10px 0 17px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));border-radius:99px;transition:width .45s}
+.gamehead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
+.tag{font-size:.76rem;font-weight:800;background:#eeeaff;color:#5c4cd3;padding:7px 10px;border-radius:10px}
+.question{font-size:clamp(1.25rem,3vw,1.65rem);line-height:1.35;margin:10px 0 18px}
+.context{color:var(--muted);line-height:1.5;margin:-7px 0 17px}
+.answers{display:grid;gap:10px}
+.answer{width:100%;text-align:left;display:flex;gap:12px;align-items:center;padding:14px;border:2px solid #e5e9fa;border-radius:16px;background:#fff;color:var(--ink);transition:.18s}
+.answer:hover:not(:disabled){transform:translateY(-2px);border-color:#a79bff;background:#faf9ff}
+.answer .letter{display:grid;place-items:center;width:30px;height:30px;flex-shrink:0;border-radius:10px;background:#eef0ff;color:#6354dc;font-weight:900}
+.answer.correct{border-color:#49d6a5;background:#eafff5}
+.answer.correct .letter{background:#bdf5df;color:#087a54}
+.answer.wrong{border-color:#ff8eb1;background:#fff0f5}
+.answer:disabled{cursor:default}
+.feedback{min-height:48px;margin:14px 0 0;padding:12px 14px;border-radius:14px;background:#f1f4ff;color:#53608c;line-height:1.45}
+.feedback.good{background:#e8fff5;color:#167a58}
+.feedback.bad{background:#fff0f5;color:#a53c67}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.primary,.secondary{padding:12px 17px;border-radius:13px;font-weight:800}
+.primary{background:linear-gradient(100deg,#6254e8,#8b5de1);color:#fff;box-shadow:0 7px 16px #6d5be52a}
+.primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.secondary{background:#eef1ff;color:#5d56ba}
+.hintbox{margin-top:12px;padding:12px 14px;border:1px dashed #c2b9ff;border-radius:14px;background:#faf8ff;color:#6555b7;line-height:1.45}
+.footer-note{font-size:.8rem;color:#7982a3;margin-top:14px}
+.hidden{display:none!important}
+.finish{text-align:center;padding:18px 8px}
+.trophy{font-size:4rem;animation:bob 2s infinite ease-in-out}
+.finish h2{font-size:2rem;margin:5px}
+.finalscore{font-size:2.7rem;font-weight:900;color:#6254e8}
+.rank{display:inline-block;padding:9px 15px;border-radius:99px;background:#fff1c8;color:#8c6200;font-weight:900;margin:8px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pop{0%{transform:scale(.94);opacity:.5}100%{transform:scale(1);opacity:1}}
+@keyframes confetti{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(90vh) rotate(600deg);opacity:0}}
+.pop{animation:pop .28s ease-out}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;border-radius:3px;z-index:20;animation:confetti 2.8s linear forwards;pointer-events:none}
+@media(max-width:740px){.layout{grid-template-columns:1fr}.side{order:2}.main{order:1}.side .level{display:inline-flex;width:calc(50% - 7px);vertical-align:top}.hero{padding:23px}.topstats{gap:8px}.stat{padding:11px}.stat strong{font-size:1.1rem}}
+@media(max-width:420px){.side .level{width:100%}.topstats{grid-template-columns:1fr}.gamehead{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">Інформатика · 6 клас · навчальна пригода</div>
+    <h1>🚀 Місія: Цифрова галактика</h1>
+    <p>Космічна мережа втратила п’ять ключів доступу! Пройди рівні, розгадай завдання про онлайн-сервіси та допоможи команді відновити зв’язок між планетами.</p>
+    <div class="pill">✨ 5 рівнів <span>·</span> 15 завдань <span>·</span> до 150 балів</div>
+  </header>
+  <div class="topstats">
+    <div class="stat"><small>ТВОЇ БАЛИ</small><strong id="score">0</strong></div>
+    <div class="stat"><small>ПРОЙДЕНО</small><strong id="completed">0 / 15</strong></div>
+    <div class="stat"><small>ПІДКАЗКИ</small><strong id="hints">0</strong></div>
+  </div>
+  <div class="layout">
+    <aside class="panel side">
+      <h2>🪐 Маршрут місії</h2>
+      <div class="progress"><span id="progressbar"></span></div>
+      <div id="levels"></div>
+      <p class="footer-note">За правильну відповідь — 10 балів. Підказка допоможе, але зменшить нагороду за завдання.</p>
+    </aside>
+    <main class="panel main" id="main">
+      <div id="game">
+        <div class="gamehead"><span class="tag" id="leveltag">РІВЕНЬ 1</span><span class="tag" id="tasktag">ЗАВДАННЯ 1 / 15</span></div>
+        <h2 class="question" id="question"></h2>
+        <p class="context" id="context"></p>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback" aria-live="polite">Обери відповідь, щоб продовжити місію.</div>
+        <div class="actions">
+          <button class="secondary" id="hintbtn">💡 Підказка</button>
+          <button class="primary" id="nextbtn" disabled>Наступне завдання →</button>
+        </div>
+        <div class="hintbox hidden" id="hintbox"></div>
+      </div>
+      <div id="finish" class="finish hidden">
+        <div class="trophy">🏆</div>
+        <h2>Галактику врятовано!</h2>
+        <p>Ти відновив(ла) цифровий зв’язок і став(ла) експертом онлайн-сервісів.</p>
+        <div class="finalscore" id="finalscore">0 / 150</div>
+        <div class="rank" id="rank"></div>
+        <p id="finalmessage"></p>
+        <button class="primary" id="restart">🔄 Пройти місію ще раз</button>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+const tasks = [
+ {level:0,q:"Що називають онлайн-сервісом?",c:"На першій планеті команда шукає визначення цифрового сервісу.",a:["Програму або послугу, доступну через інтернет","Лише пристрій для друку","Будь-який файл на флешці","Комп’ютер без підключення до мережі"],correct:0,h:"Онлайн-сервісом користуються через мережу; часто він працює у браузері."},
+ {level:0,q:"Який сервіс найкраще підійде для спільного створення текстового документа?",c:"Потрібно редагувати текст разом із однокласниками.",a:["Онлайн-карта","Спільний текстовий редактор","Відеоплеєр","Калькулятор на комп’ютері"],correct:1,h:"Шукай інструмент, у якому кілька людей можуть працювати над одним документом."},
+ {level:0,q:"Що з переліченого є прикладом хмарного сховища?",c:"Потрібно зберігати файли онлайн і відкривати їх з різних пристроїв.",a:["Папка на робочому столі без синхронізації","Онлайн-диск","Клавіатура","Офлайн-гра"],correct:1,h:"Хмарне сховище зберігає дані на віддалених серверах."},
+ {level:1,q:"Який сервіс допоможе знайти маршрут до музею?",c:"Екіпаж має прокласти шлях незнайомим містом.",a:["Сервіс електронної пошти","Онлайн-карта","Редактор презентацій","Перекладач тексту"],correct:1,h:"Цей сервіс показує місця, дороги та маршрути."},
+ {level:1,q:"Для чого зазвичай використовують електронну пошту?",c:"Потрібно надіслати повідомлення та файл учителю.",a:["Для надсилання й отримання листів","Для вимірювання температури","Для створення паролів автоматично","Для ремонту комп’ютера"],correct:0,h:"Електронна пошта — засіб обміну листами та вкладеннями."},
+ {level:1,q:"Який сервіс доречний для онлайн-опитування класу?",c:"Команді потрібно швидко зібрати відповіді всіх учнів.",a:["Онлайн-форма","Графічний редактор","Музичний стримінг","Калькулятор"],correct:0,h:"Форми дають змогу створювати запитання та збирати відповіді."},
+ {level:2,q:"Що потрібно для створення облікового запису в більшості сервісів?",c:"На планеті Реєстрації потрібно створити власний профіль.",a:["Логін та пароль, а іноді додаткові дані","Лише назва улюбленої гри","Обов’язково номер банківської картки","Пароль друга"],correct:0,h:"Зазвичай сервіс просить ім’я користувача або електронну адресу й пароль."},
+ {level:2,q:"Який пароль є найнадійнішим?",c:"Система безпеки просить обрати захищений пароль.",a:["123456","qwerty","Марина2026","V!d7_kR2#pL9"],correct:3,h:"Надійний пароль довгий, непередбачуваний і містить різні типи символів. Не використовуй особисті дані."},
+ {level:2,q:"Що слід зробити перед натисканням кнопки «Зареєструватися»?",c:"Потрібно завершити реєстрацію без помилок.",a:["Перевірити введені дані та правила сервісу","Надіслати пароль у чат класу","Вказати будь-яку чужу адресу","Закрити сторінку"],correct:0,h:"Переконайся, що дані введено правильно та сервісу можна довіряти."},
+ {level:3,q:"Тобі надійшло посилання «Терміново введи пароль, щоб не втратити акаунт». Як діяти?",c:"Під час роботи в сервісі з’явилося підозріле повідомлення.",a:["Одразу ввести пароль","Переслати всім друзям","Не відкривати посилання; перевірити повідомлення через офіційний сайт","Ввести пароль від іншого сервісу"],correct:2,h:"Це може бути фішинг. Не переходь за сумнівними посиланнями та не вводь секретні дані."},
+ {level:3,q:"Як безпечно надати однокласнику доступ до документа для спільного редагування?",c:"Потрібно працювати над проєктом у хмарі.",a:["Опублікувати пароль від акаунта","Надати доступ лише потрібній людині з відповідними правами","Зробити документ доступним усім в інтернеті без потреби","Надіслати копію з особистими даними"],correct:1,h:"Керуй доступом до конкретного документа: обери адресата та потрібні права."},
+ {level:3,q:"Яке правило варто виконувати на спільному комп’ютері після роботи з онлайн-сервісом?",c:"Екіпаж завершує роботу в космічній бібліотеці.",a:["Залишити акаунт відкритим","Зберегти пароль у браузері для всіх","Вийти з облікового запису","Передати пароль наступному користувачу"],correct:2,h:"Завершуй сеанс і не залишай особистий акаунт відкритим на чужому пристрої."},
+ {level:4,q:"У сервісі з’явилося вікно з проханням дозволити доступ до камери. Що робити?",c:"Фінальний сектор вимагає уважності до дозволів.",a:["Завжди натискати «Дозволити»","Дозволити лише якщо це потрібно для функції та ти довіряєш сервісу","Надати доступ усім сайтам","Вимкнути всі засоби безпеки"],correct:1,h:"Перевір, навіщо потрібен дозвіл. Надавай доступ лише за необхідності."},
+ {level:4,q:"Потрібно організувати відеозустріч класу. Який набір дій найкращий?",c:"Команда має провести онлайн-зустріч.",a:["Створити зустріч у відповідному сервісі, надіслати посилання учасникам і дотримуватися правил безпеки","Викласти посилання з усіма даними у відкритий доступ","Попросити всіх повідомити свої паролі","Використати випадковий сайт без перевірки"],correct:0,h:"Обери знайомий сервіс відеозв’язку, запроси лише учасників і не публікуй зайві дані."},
+ {level:4,q:"Що найкраще описує відповідальну роботу з онлайн-сервісами?",c:"Останній ключ — цифрова грамотність!",a:["Використовувати будь-які дані, які знайдеш","Дбати про приватність, безпеку, авторські права та поважати інших","Створювати один пароль для всіх сайтів","Не читати повідомлення про дозволи"],correct:1,h:"Цифрова грамотність поєднує ефективне використання сервісів із безпекою та повагою."}
+];
+const levelNames=["Стартова станція","Планета сервісів","База реєстрації","Кіберщит","Галактичний фінал"];
+const levelIcons=["🛰️","🌍","🔐","🛡️","🌟"];
+let index=0,score=0,hintCount=0,answered=false,usedHint=false;
+const $=id=>document.getElementById(id);
+function renderLevels(){
+ $("levels").innerHTML=levelNames.map((name,i)=>{let done=index>=((i+1)*3);let active=Math.floor(index/3)===i && index<15;return `<div class="level ${done?'done':''} ${active?'active':''}"><div class="orb">${done?'✓':levelIcons[i]}</div><div>${name}<div class="mini">Рівень ${i+1} · ${done?'завершено':active?'у процесі':'попереду'}</div></div>`}).join("");
+ $("progressbar").style.width=(index/15*100)+"%";
+}
+function renderTask(){
+ answered=false;usedHint=false;
+ const t=tasks[index];
+ $("game").classList.remove("hidden");$("finish").classList.add("hidden");
+ $("leveltag").textContent=`РІВЕНЬ ${t.level+1} · ${levelNames[t.level]}`;
+ $("tasktag").textContent=`ЗАВДАННЯ ${index+1} / 15`;
+ $("question").textContent=t.q;$("context").textContent=t.c;
+ $("answers").innerHTML=t.a.map((a,i)=>`<button class="answer" data-index="${i}"><span class="letter">${String.fromCharCode(65+i)}</span><span>${a}</span></button>`).join("");
+ document.querySelectorAll(".answer").forEach(btn=>btn.addEventListener("click",()=>choose(Number(btn.dataset.index))));
+ $("feedback").className="feedback";$("feedback").textContent="Обери відповідь, щоб продовжити місію.";
+ $("hintbox").classList.add("hidden");$("hintbox").textContent="";
+ $("hintbtn").disabled=false;$("nextbtn").disabled=true;
+ $("nextbtn").textContent=index===14?"Побачити результат 🏆":"Наступне завдання →";
+ $("score").textContent=score;$("completed").textContent=`${index} / 15`;$("hints").textContent=hintCount;
+ renderLevels();
+}
+function choose(choice){
+ if(answered)return;answered=true;
+ const t=tasks[index],correct=choice===t.correct;
+ document.querySelectorAll(".answer").forEach((btn,i)=>{btn.disabled=true;if(i===t.correct)btn.classList.add("correct");if(i===choice&&!correct)btn.classList.add("wrong")});
+ const fb=$("feedback");
+ if(correct){score+=usedHint?5:10;fb.className="feedback good";fb.textContent=usedHint?"Вірно! Підказка допомогла — +5 балів.":"Чудово! Правильна відповідь — +10 балів. 🚀";fb.classList.add("pop")}
+ else{fb.className="feedback bad";fb.textContent="Не зовсім! Правильний варіант підсвічено. Запам’ятай це для наступних місій."}
+ $("score").textContent=score;$("completed").textContent=`${index+1} / 15`;
+ $("nextbtn").disabled=false;$("hintbtn").disabled=true;
+}
+$("hintbtn").addEventListener("click",()=>{if(usedHint||answered)return;usedHint=true;hintCount++;$("hints").textContent=hintCount;$("hintbox").textContent="💡 "+tasks[index].h;$("hintbox").classList.remove("hidden");$("hintbtn").textContent="Підказка використана";$("hintbtn").disabled=true});
+$("nextbtn").addEventListener("click",()=>{if(!answered)return;if(index<14){index++;renderTask()}else showFinish()});
+function showFinish(){
+ $("game").classList.add("hidden");$("finish").classList.remove("hidden");$("progressbar").style.width="100%";
+ $("completed").textContent="15 / 15";renderLevels();
+ $("finalscore").textContent=`${score} / 150`;
+ let rank,msg;
+ if(score>=135){rank="🌌 Легенда цифрової галактики";msg="Фантастичний результат! Ти впевнено орієнтуєшся в онлайн-сервісах і правилах безпеки."}
+ else if(score>=100){rank="🚀 Капітан онлайн-сервісів";msg="Чудова робота! Ти знаєш, як обирати сервіси та захищати свій обліковий запис."}
+ else if(score>=60){rank="🪐 Дослідник цифрового світу";msg="Гарний старт! Повтори підказки й спробуй ще раз, щоб зібрати більше балів."}
+ else{rank="✨ Новачок галактики";msg="Місію завершено! Повтори матеріал і повертайся — кожна спроба робить тебе сильнішим."}
+ $("rank").textContent=rank;$("finalmessage").textContent=msg;
+ for(let i=0;i<45;i++){const el=document.createElement("i");el.className="confetti";el.style.left=Math.random()*100+"vw";el.style.background=["#ff6ca8","#6656e8","#5ed9e8","#ffd66b","#31c995"][i%5];el.style.animationDelay=Math.random()*1.2+"s";el.style.animationDuration=(2+Math.random()*1.6)+"s";document.body.appendChild(el);setTimeout(()=>el.remove(),4200)}
+}
+$("restart").addEventListener("click",()=>{index=0;score=0;hintCount=0;renderTask()});
+renderTask();
+</script>
+</body>
+</html>
